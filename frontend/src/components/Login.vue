@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import DOMPurify from 'dompurify';
 export default {
   name: "Login",
   computed: {
@@ -34,7 +35,8 @@ export default {
     },
     error() {
       const params = new URLSearchParams(window.location.search)
-      return params.get('error')
+      const rawError = params.get('error')
+      return rawError ? DOMPurify.sanitize(rawError) : null
     },
   },
   methods: {
