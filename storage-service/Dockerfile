@@ -1,4 +1,4 @@
-FROM openjdk:15-slim AS build
+FROM openjdk:17-slim AS build
 WORKDIR /app
 
 # Install Maven
@@ -16,7 +16,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn package -DskipTests
 
-FROM openjdk:15-jre-slim
+FROM openjdk:17-jre-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
