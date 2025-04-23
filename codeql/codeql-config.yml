@@ -4,7 +4,7 @@ disable-default-queries: false
 
 queries:
     - uses: ./custom-queries/code-scanning.qls
-    - uses: ./custom-queries/java/sql-injection.ql
+    - uses: ./custom-queries/go/jtw.ql
 
 paths-ignore:
  - '**/test/**'
