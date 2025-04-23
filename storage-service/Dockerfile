@@ -1,4 +1,4 @@
-FROM openjdk:17-slim AS build
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
 
 # Install Maven
@@ -16,7 +16,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn package -DskipTests
 
-FROM openjdk:17-jre-slim
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
