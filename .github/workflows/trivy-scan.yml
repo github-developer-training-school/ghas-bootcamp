@@ -1,11 +1,8 @@
 name: Trivy Security Scan
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+  workflow_dispatch:
+    
 permissions:
   contents: read
   security-events: write # for uploading SARIF results

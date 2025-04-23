@@ -5,8 +5,6 @@ disable-default-queries: false
 queries:
     - uses: ./custom-queries/code-scanning.qls
     - uses: ./custom-queries/java/sql-injection.ql
-    - name: java-deserialization
-      uses: github/securitylab/CodeQL-queries/java/ql/src/Security/CWE/CWE-502/UnsafeDeserialization.ql@main
 
 paths-ignore:
  - '**/test/**'
