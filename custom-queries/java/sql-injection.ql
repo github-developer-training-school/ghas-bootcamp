@@ -5,6 +5,7 @@
  * @tags method
  *       access
  *       private
+ * @kind problem
  */
 
 import java
