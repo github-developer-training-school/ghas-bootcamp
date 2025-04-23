@@ -83,7 +83,7 @@ jobs:
 
     - name: Autobuild Java/Kotlin
       if: matrix.language == 'java-kotlin'
-      uses: ./codeql-action/autobuild@v3
+      uses: github/codeql-action/autobuild@v3
 
     # If the analyze step fails for one of the languages you are analyzing with
     # "We were unable to automatically build your code", modify the matrix above
