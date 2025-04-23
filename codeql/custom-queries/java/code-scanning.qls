@@ -1,3 +1,0 @@
-- description: Custom Java security queries
-- queries: |
-  import "sql-injection.ql" 
