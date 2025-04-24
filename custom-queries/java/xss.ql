@@ -25,7 +25,10 @@ class ServletParameterSource extends TaintTracking::Source {
   }
 }
 
-from XSS::Sink sink, ServletParameterSource source
-where XSS::hasFlow(source, sink)
+from TaintTracking::Configuration config, DataFlow::PathNode source, DataFlow::PathNode sink
+where
+  config.hasFlowPath(source, sink) and
+  source.getNode() instanceof ServletParameterSource and
+  sink.getNode() instanceof XSS::Sink
 select sink.getNode(), source, sink,
   "Potential XSS vulnerability: User input is written directly to the response without proper sanitization." 
