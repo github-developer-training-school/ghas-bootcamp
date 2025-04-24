@@ -15,27 +15,17 @@ import semmle.code.java.dataflow.FlowSources
 import semmle.code.java.dataflow.TaintTracking
 import semmle.code.java.security.XSS
 
-class XSSConfig extends TaintTracking::Configuration {
-  XSSConfig() { this = "XSSConfig" }
-
-  override predicate isSource(DataFlow::Node source) {
+class ServletParameterSource extends TaintTracking::Source {
+  ServletParameterSource() {
     exists(MethodAccess ma |
       ma.getMethod().hasName("getParameter") and
       ma.getMethod().getDeclaringType().hasQualifiedName("javax.servlet.http", "HttpServletRequest") and
-      source.asExpr() = ma
-    )
-  }
-
-  override predicate isSink(DataFlow::Node sink) {
-    exists(MethodAccess ma |
-      ma.getMethod().hasName("print") and
-      ma.getMethod().getDeclaringType().hasQualifiedName("javax.servlet.http", "HttpServletResponse") and
-      sink.asExpr() = ma.getAnArgument()
+      this.asExpr() = ma
     )
   }
 }
 
-from XSSConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
-where config.hasFlowPath(source, sink)
+from XSS::Sink sink, ServletParameterSource source
+where XSS::hasFlow(source, sink)
 select sink.getNode(), source, sink,
   "Potential XSS vulnerability: User input is written directly to the response without proper sanitization." 
