@@ -1,4 +1,17 @@
-name: my-java-queries
-version: 0.0.0
-libraryPathDependencies:
-    - codeql/java-all
+name: custom-java-queries
+
+# Semantic version number for your pack. Start low, like 0.1.0.
+version: 0.1.0
+
+# Specifies the language extractor needed to create databases compatible with this pack.
+# For Java queries, this must be "java".
+extractor: java
+
+# Declares dependencies on other QL packs. 
+# Your custom Java queries need the standard CodeQL Java libraries to work.
+# 'codeql/java-queries' provides the core types and predicates for Java analysis.
+# The version range (^0.8.0) means "compatible with version 0.8.0 and any later 0.x version". 
+# You might need to adjust this based on the CodeQL version you are using.
+dependencies:
+  codeql/java-queries: ^0.8.0 
+
