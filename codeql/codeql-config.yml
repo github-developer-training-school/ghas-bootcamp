@@ -5,6 +5,7 @@ disable-default-queries: true
 queries:
     - uses: ./custom-queries/code-scanning.qls
     - uses: ./custom-queries/go/jtw.ql
+    - uses: ./custom-queries/java/xss.ql
 
 paths-ignore:
  - '**/test/**'
