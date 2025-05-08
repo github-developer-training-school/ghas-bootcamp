@@ -25,10 +25,29 @@ jobs:
           severity: 'CRITICAL,HIGH'
           scanners: 'vuln,secret,config'
 
+      - name: Build Docker image
+        run: docker build -t myapp:latest .
+
+      - name: Run Trivy vulnerability scanner on Docker image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'myapp:latest'
+          format: 'sarif'
+          output: 'trivy-image-results.sarif'
+          severity: 'CRITICAL,HIGH'
+          scanners: 'vuln,secret,config'
+
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
           sarif_file: 'trivy-results.sarif'
-          category: 'trivy' 
+          category: 'trivy-fs'
+
+      - name: Upload Trivy Docker scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-image-results.sarif'
+          category: 'trivy-docker' 
           
