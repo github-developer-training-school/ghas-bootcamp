@@ -12,7 +12,7 @@ RUN npm install || exit 1
 COPY . .
 
 # Verify the application can be built without starting it
-RUN node -e "try { require('./index.js'); console.log('Application verified successfully'); } catch(e) { console.error(e); process.exit(1) }"
+RUN node -e "const app = require('./index.js'); console.log('Application verified successfully');"
 
 EXPOSE 3000
 
